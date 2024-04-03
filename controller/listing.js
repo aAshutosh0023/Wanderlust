@@ -5,9 +5,9 @@ const {mapApi} = require("./mapApi.js");
  
 module.exports.index=async(req,res)=>{
   
-    let allLists = await Listing.find({});
+    let Lists = await Listing.find({});
 
-    res.render("listings/index.ejs",{allLists});
+    res.render("listings/index.ejs",{Lists});
 
 }
 
@@ -17,19 +17,23 @@ module.exports.newListingForm=(req,res)=>{
 }
 
 
- //newly updated show list after the posting 
+ //newly updated post and then show list after the posting 
 module.exports.createListing=async(req,res,next)=>{
       let url = req.file.path;
      let filename = req.file.filename;
-    
+      
+    let {category }=  req.body.listing;
+     console.log(category);
     const newListing = new Listing(req.body.listing);
     newListing.owner = req.user.id; //save owner details
 
     newListing.image = {url,filename};
+   
+    newListing.category = category;
 
     const searchQuery =`${newListing.title},${newListing.location},${newListing.country}`
     
-    console.log(searchQuery);
+   
     let dataArr = await mapApi(searchQuery);
 
     const apiData = {
@@ -40,10 +44,8 @@ module.exports.createListing=async(req,res,next)=>{
        newListing.geometry = apiData;
 
         await newListing.save();
-
-        console.log(newListing);
         
-        req.flash("successMsg","you have been sucessfully listed.");
+        req.flash("successMsg","you have been sucessfully listed."); 
       
          res.redirect("/listings"); 
 

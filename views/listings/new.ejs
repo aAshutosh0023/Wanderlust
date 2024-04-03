@@ -88,11 +88,9 @@
               </div>
         </div> 
 
-        
-         
-        
+      <div class="row">
 
-         <div class="mb-3"> 
+         <div class="mb-3 col-md-4"> 
             <label for="location" class="form-label">Location</label>
 
             <input type="text" name="listing[location]" 
@@ -106,9 +104,26 @@
               </div>
             </div>
         
-        
-           
-       
+        <div class="mb-3 col-md-8">
+          <label for="category" class="form-label">Category</label>
+       <select name="listing[category]"class="form-control" >
+              <option value="" selected disabled>None</option>
+              <option value="trending">Trending</option>
+
+              <option value="rooms">Rooms</option>
+              <option value="castle">Castle</option>
+              <option value="fort">Fort</option>
+              <option value="farms">Farms</option>
+              <option value="camping">Camping</option>
+              <option value="mountains">Mountains</option>
+              <option value="beach">Beach</option>
+              <option value="iconic_cities">Iconic Cities</option>
+              <option value="boats">Boats</option>
+              <option value="domes">Domes</option>
+              <option value="arctic">Arctic</option>
+            </select>
+          </div> 
+        </div>
         <br>
        
          

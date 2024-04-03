@@ -57,7 +57,12 @@ let listingSchema = new Schema({
           type: [Number],
           required: true
         }
-      }
+      },
+      category: {
+        type: String,
+        enum: ['trending','iconic_cities','rooms','boats','arctic','camping','beach', 'castle','farms','mountains','domes'],
+        required: false
+    },
 
       });
       

@@ -11,12 +11,16 @@ if(process.env.Node_ENV != "production"){
  
  const expressError = require('./utils/expressError.js')
  const path = require("path"); 
-
+ 
+ 
  
 
  const listingsRouter = require("./routes/listing.js")
  const reviewsRouter = require("./routes/review.js")
  const userRouter = require("./routes/user.js")
+ const filterRouter = require("./routes/filtered.js")
+ const searchRouter =  require("./routes/search.js")
+ 
 
 
  const session =require("express-session");  // only server-side session storage
@@ -28,6 +32,7 @@ if(process.env.Node_ENV != "production"){
  const User = require("./models/user.js");
 
 const { constants } = require("buffer"); 
+const Listing = require('./models/listing.js');
 
  app.use(methodOverride("_method"));
 
@@ -43,6 +48,7 @@ const { constants } = require("buffer");
 
  const dbUrl = process.env.ATLASDB_URL ;
  const sessionKey = process.env.SESSION_KEY;
+ const mongoUrl ='mongodb://127.0.0.1:27017/wanderlust'
 
  const store = MongoStore.create({ mongoUrl: dbUrl ,
  crypto: {
@@ -78,7 +84,7 @@ store.on("error",()=>{
    })
 
    async function main(){
-    await mongoose.connect(dbUrl);
+    await mongoose.connect(mongoUrl);
  }
  
 
@@ -109,6 +115,13 @@ store.on("error",()=>{
         app.use("/listings",listingsRouter);
         app.use("/listings/:id/reviews",reviewsRouter);
         app.use("/",userRouter);
+        app.use("/filtered",filterRouter);
+        app.use("/searchResults",searchRouter);
+
+   
+         
+
+
 
 
   //we use next for it kyuki wrapAsync use ni kiya ,kyuki yeh async nhi hai.
