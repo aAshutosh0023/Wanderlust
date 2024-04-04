@@ -10,7 +10,12 @@
         
   
       <div class="card col-6 offset-3 show-card listing-card">
-          <img src="<%= list.image.url %>" class="card-img-top show-img" alt="listing_image" >
+        <% if (list.image && list.image.length > 0) { %>
+            <%  for(img of list.image) { %>
+              <img src="<%= img.url %>" class="card-img-top show-img" alt="listing_image">  <br>
+          <% }; %>
+      <% }  %>
+
           <div class="card-body">
               <p class="card-text"> 
                   <p><i>Owned by: <%= list.owner.username %></i><br></p>  

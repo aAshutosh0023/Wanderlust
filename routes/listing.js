@@ -8,21 +8,21 @@ const  listingController = require("../controller/listing.js")
 
 const multer  = require("multer") //to parse the image data
 const{storage} = require("../cloudConfig.js")
+
 const upload = multer({storage});  //saving file on the given storage,initialize it
 
-
- 
-
+      
     router.route("/")
     .get(wrapAsync(listingController.index))    //all listing route
     .post(isLoggedIn,          //newly updated show list after the posting 
-          upload.single("listing[image]"),
-          validateListing, //this should come after upload.single..else it will empty and show required listing.
-          wrapAsync(listingController.createListing));
+         upload.array("listing[image]", 7), 
+         validateListing, //this should come after upload.single..else it will empty and show required listing. 
+         wrapAsync(listingController.createListing) 
+          );
         
 
      //new listing route
-     router.get("/new",isLoggedIn,listingController.newListingForm)
+    router.get("/new",isLoggedIn,listingController.newListingForm)
 
 
     router.route("/:id")

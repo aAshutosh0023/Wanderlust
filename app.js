@@ -32,7 +32,6 @@ if(process.env.Node_ENV != "production"){
  const User = require("./models/user.js");
 
 const { constants } = require("buffer"); 
-const Listing = require('./models/listing.js');
 
  app.use(methodOverride("_method"));
 

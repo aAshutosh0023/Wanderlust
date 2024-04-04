@@ -9,8 +9,8 @@ module.exports.listingSchema = Joi.object({
      country: Joi.string().required(),
      location: Joi.string() .required(),
      price: Joi.number().required().min(0),
-     image:Joi.object({filename:Joi.string(),
-                       url:Joi.string().allow("",null)}).allow(" ",null), //not required...nhi doge pic toh bhi koi naa.
+     image:Joi.object([{filename:Joi.string(),
+                       url:Joi.string().allow("",null)}]).allow(" ",null), //not required...nhi doge pic toh bhi koi naa.
     //image is also object..that contain filename and url.
     category: Joi.string().valid('trending', 'iconic_cities', 'rooms', 'boats', 'arctic', 'camping', 'beach', 'castle', 'farms', 'mountains', 'domes').optional()
     }).required()//listing object is required too...khali hua toh nhi chalegaa..
