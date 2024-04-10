@@ -47,7 +47,7 @@ const { constants } = require("buffer");
 
  const dbUrl = process.env.ATLASDB_URL ;
  const sessionKey = process.env.SESSION_KEY;
- const mongoUrl ='mongodb://127.0.0.1:27017/wanderlust'
+ //const mongoUrl ='mongodb://127.0.0.1:27017/wanderlust'
 
  const store = MongoStore.create({ mongoUrl: dbUrl ,
  crypto: {
@@ -83,7 +83,7 @@ store.on("error",()=>{
    })
 
    async function main(){
-    await mongoose.connect(mongoUrl);
+    await mongoose.connect(dbUrl);
  }
  
 
