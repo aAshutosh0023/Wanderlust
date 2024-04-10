@@ -15,7 +15,7 @@ const upload = multer({storage});  //saving file on the given storage,initialize
     router.route("/")
     .get(wrapAsync(listingController.index))    //all listing route
     .post(isLoggedIn,          //newly updated show list after the posting 
-         upload.array("listing[image]", 7), 
+         upload.array("listing[image]", 5), 
          validateListing, //this should come after upload.single..else it will empty and show required listing. 
          wrapAsync(listingController.createListing) 
           );

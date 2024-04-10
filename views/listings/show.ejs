@@ -2,47 +2,67 @@
 
   <% layout('/layouts/boilerplate') -%>
   
-  <div class="row mt-3">
-      <div class="col-8 offset-3">
-          <h3><%= list.title %></h3>
+  <div class="row mt-4">
+      <div class="col-8 col-md-12 col-xs-12 col-sm-12-title ">
+          <h2 class="title"><%= list.title %></h2>
       </div>
-
-        
-  
-      <div class="card col-6 offset-3 show-card listing-card">
+ 
+    
+       <div class="picsBox">
         <% if (list.image && list.image.length > 0) { %>
-            <%  for(img of list.image) { %>
-              <img src="<%= img.url %>" class="card-img-top show-img" alt="listing_image">  <br>
+            <%  for(let i=0; i<list.image.length; i++) { %>
+           <div class="pics" id="pic_<%=i%>" > <img src="<%= list.image[i].url %>" class="card-img-top show-img" alt="listing_image"> </div>    
           <% }; %>
-      <% }  %>
+      <% }  %> 
+       </div>
 
-          <div class="card-body">
-              <p class="card-text"> 
-                  <p><i>Owned by: <%= list.owner.username %></i><br></p>  
-                  <p><%= list.description %><br></p> 
-                  <p>&#8377;<%= list.price.toLocaleString("en-IN") %><br></p> 
-                  <p><%= list.location %><br></p> 
-                  <p><%= list.country %></p>  
-              </p>
-          </div>
+
+       <div class="user">
+
+       <div class="details mt-2">
+         
+            
+                  <p id="location"><%= list.location %>,<%= list.country %></p> 
+                  <p id="desc"><%= list.description %></p> 
+                  <p id="price">&#8377;<%= list.price.toLocaleString("en-IN") %></p> 
+               
+                  <hr>
+
+                <div class="host_container">
+                    <div class="host_info">
+                         <img src="https://i.pinimg.com/736x/44/4b/d6/444bd6f7040c5ead15609750140c3713.jpg" alt="">
+                        <div class="host_detail">
+                          <div  id="host_name">Hosted by <%= list.owner.username %></div>   
+                        <div  id="host_year">6 Year hosting </div>
+                                         </div>
+                                        </div>
+                  
+                   
+
+             <% if(currentUser && currentUser._id.equals(list.owner._id)){ %>  
+                <div class="host_actions">
+                <a href="/listings/<%= list.id %>/edit" class="btn btn-dark edit-btn">Update</a>
+
+                  <form method="post" action="/listings/<%= list.id %>?_method=DELETE">
+                      <button class="btn btn-dark delete-btn">Delete</button>
+                     </form>
+                        </div> 
+                    <% } %>
+                </div>   
+                
+             
+         
       </div>
-  
-      <% if(currentUser && currentUser._id.equals(list.owner._id)){ %>  
-          <div class="btns">
-              <a href="/listings/<%= list.id %>/edit" class="btn btn-dark col-md-1 offset-3 edit-btn">Update</a>
-              <form method="post" action="/listings/<%= list.id %>?_method=DELETE">
-                  <button class="btn btn-dark offset-3">Delete</button>
-              </form>
-          </div> 
-      <% } %>
+</div>
   </div>
+    
   
-  <div class="col-8 offset-3 mb-3">
+  <div class="col-12 mb-3">
       <% if(currentUser) { %>
           <hr>
           <h4>Leave a Review</h4>
           <form action="/listings/<%= list.id %>/reviews" method="post" novalidate class="needs-validation">
-              <div class="mb-3 mt-3">
+              <div class=" mt-3">
                   <label for="rating" class="form-label">Rating</label>
                   <fieldset class="starability-heart">
                       <!-- Rating inputs -->
@@ -59,9 +79,9 @@
         <label for="first-rate5" title="Amazing">5 stars</label>
                   </fieldset>
               </div>
-              <div class="mb-3 mt-3">
+              <div class="mb-3 col-md-8 col-lg-5  col-xs-12">
                   <label for="comment" class="form-label">Comments</label>
-                  <textarea name="review[comment]" id="comment" cols="30" rows="5" class="form-control" required></textarea>
+                  <textarea name="review[comment]" id="comment" cols="30" rows="6" class="form-control" required></textarea>
                   <div class="valid-feedback">Comment Looks good!</div>
                   <div class="invalid-feedback">Comment should be valid!</div>
               </div>
@@ -72,7 +92,7 @@
       <p><b>All Reviews</b></p> 
       <div class="row">
           <% for(review of list.reviews){ %>
-              <div class="card col-5 ms-3 mb-3">
+              <div class=" card  col-lg-5 col-11 mb-3 ms-3 ">
                   <div class="card-body">
                       <h5 class="card-title"><%= review.author.username %></h5>
                       <p class="starability-result card-text" data-rating=<%= review.rating %>></p>    
@@ -83,8 +103,8 @@
                   </form>
               </div> 
           <% } %>
-         
-          <h1>Where you'll be</h1>
+         <hr>
+          <h2>Where you'll be</h2>
       </div>
   </div>
 
@@ -111,11 +131,10 @@
   
 
   #map {
-     margin-left: 22%;
-     margin-right: 8%;
+     right: 1rem;
      margin-bottom: 5%;
-      height: 50vh;
-      width: 100%;
+      height: 60vh;
+     width: 100%;
 
   }
  
