@@ -83,7 +83,7 @@ store.on("error",()=>{
    })
 
    async function main(){
-    await mongoose.connect(dbUrl);
+    await mongoose.connect(mongoUrl);
  }
  
 
@@ -137,7 +137,7 @@ store.on("error",()=>{
            res.status(statusCode).render("error.ejs",{message});
         })
 
-  app.listen(3000,()=>{
+  app.listen(8080,()=>{
       console.log("server start");
   })
 

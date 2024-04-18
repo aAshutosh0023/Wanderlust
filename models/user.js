@@ -10,9 +10,34 @@ const userSchema = new Schema({
         type:String,
         required: true,
     },
-    
+    username: {
+        type: String,
+        required: true,
+        unique: true,  // Ensure username is unique
+        validate: {
+            validator: function(value) {
+                // Custom validation function to check if the username is not all whitespace
+                return value.trim() !== "";
+            },
+            message: "DV bhaiii masti nahi!! acha sa username daalna pdegaa!!",
+        }
+    }
+
+
 });  //no need to add username and password..by default will be add by the passportLocalMongoose plugin that we are using.
 
-userSchema.plugin(passportLocalMongoose);
+userSchema.plugin(passportLocalMongoose, {
+    usernameField: 'username',  // Specify the custom username field
+    passwordValidator: function(password, cb) {
+        // Custom password validator function to check that the password is not all whitespace
+        if (password.trim() === "") {
+            return cb(new Error("DV bhaii!! aisa ni chalega!"));
+        }
+        // If the password is valid (not all whitespace), return true
+        return cb(null, true);
+    }
+});
+
+
 
 module.exports = mongoose.model("User",userSchema);
