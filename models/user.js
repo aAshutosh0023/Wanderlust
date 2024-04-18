@@ -10,6 +10,7 @@ const userSchema = new Schema({
         type:String,
         required: true,
     },
+    
 });  //no need to add username and password..by default will be add by the passportLocalMongoose plugin that we are using.
 
 userSchema.plugin(passportLocalMongoose);
