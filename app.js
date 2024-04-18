@@ -47,7 +47,7 @@ const { constants } = require("buffer");
 
  const dbUrl = process.env.ATLASDB_URL ;
  const sessionKey = process.env.SESSION_KEY;
- //const mongoUrl ='mongodb://127.0.0.1:27017/wanderlust'
+ const mongoUrl ='mongodb://127.0.0.1:27017/wanderlust'
 
  const store = MongoStore.create({ mongoUrl: dbUrl ,
  crypto: {
@@ -83,7 +83,7 @@ store.on("error",()=>{
    })
 
    async function main(){
-    await mongoose.connect(dbUrl);
+    await mongoose.connect(mongoUrl);
  }
  
 
@@ -105,7 +105,8 @@ store.on("error",()=>{
 
     res.locals.successMsg =  req.flash("successMsg");
     res.locals.errorMsg = req.flash("errorMsg");
-    res.locals.currentUser = req.user;  
+    res.locals.currentUser = req.user; 
+    
     next();
   })
        
@@ -136,7 +137,7 @@ store.on("error",()=>{
            res.status(statusCode).render("error.ejs",{message});
         })
 
-  app.listen(8080,()=>{
+  app.listen(3000,()=>{
       console.log("server start");
   })
 
