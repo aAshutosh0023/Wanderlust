@@ -19,7 +19,7 @@ const userSchema = new Schema({
                 // Custom validation function to check if the username is not all whitespace
                 return value.trim() !== "";
             },
-            message: "DV bhaiii masti nahi!! acha sa username daalna pdegaa!!",
+            message: "please fill valid username!",
         }
     }
 
@@ -31,7 +31,7 @@ userSchema.plugin(passportLocalMongoose, {
     passwordValidator: function(password, cb) {
         // Custom password validator function to check that the password is not all whitespace
         if (password.trim() === "") {
-            return cb(new Error("DV bhaii!! aisa ni chalega!"));
+            return cb(new Error("please fill valid password!"));
         }
         // If the password is valid (not all whitespace), return true
         return cb(null, true);
