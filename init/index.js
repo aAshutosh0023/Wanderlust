@@ -18,7 +18,7 @@ const mongoose = require("mongoose");
    const initDB = async ()=>{
    await  Listing.deleteMany({}); //khali krdena
    await  Listing.insertMany(initData.data);  //dubara sab daalna
-   await Listing.updateMany({}, {$set: {owner:"6602217e9410d47733099b6d"}})  //owner wala field daal do..
+   await Listing.updateMany({}, {$set: {owner:"66168f8eee4c75249fca1e38"}})  //owner wala field daal do..
 }
    
 
