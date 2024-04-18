@@ -83,7 +83,7 @@ store.on("error",()=>{
    })
 
    async function main(){
-    await mongoose.connect(mongoUrl);
+    await mongoose.connect(dbUrl);
  }
  
 
